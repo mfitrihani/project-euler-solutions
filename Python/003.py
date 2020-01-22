@@ -20,3 +20,4 @@ def find_factors(n):
 
 if __name__ == '__main__':
     print(largest_prime_factor(600851475143))
+    print(find_factors(12))
