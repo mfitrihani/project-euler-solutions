@@ -1,25 +1,26 @@
-def is_prime(n):
-    factors = []
-    for x in range(2, int(n ** 0.5) + 1):
-        if n % x == 0:
-            factors.append(x)
-            factors.append(int(n / x))
-    return len(factors) == 0
-
-
-def total_of_prime(max_prime_number):
-    total = 2
-    number = 3
-    while number < max_prime_number:
-        if is_prime(number):
-            total += number
-        number += 2
+def total_of_list(lis):
+    total = 0
+    for x in lis:
+        total += x
     return total
 
 
 def generate_prime_number(max_prime_number):
-    candidate = []
+    candidate = [True for x in range(0, max_prime_number)]
+    for i in range(2, int(max_prime_number**0.5) + 2):
+        if candidate[i]:
+            j = i*i
+            x = 1
+            while j < max_prime_number:
+                candidate[j] = False
+                j = i*i + x*i
+                x += 1
+    prime_numbers = []
+    for x in range(0, len(candidate)):
+        if candidate[x]:
+            prime_numbers.append(x)
+    return prime_numbers
 
 
 if __name__ == '__main__':
-    print(total_of_prime(2000000))
+    print(total_of_list(generate_prime_number(2000000)))
