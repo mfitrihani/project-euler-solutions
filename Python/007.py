@@ -10,12 +10,14 @@ def find_nth_prime_number(n):
 
 
 def is_prime(n):
-    factors = []
-    for x in range(2, int(n ** 0.5) + 1):
+    if n < 2:
+        return False
+    if n == 2:
+        return True
+    for x in range(2, int(n ** 0.5) + 2):
         if n % x == 0:
-            factors.append(x)
-            factors.append(int(n / x))
-    return len(factors) == 0
+            return False
+    return True
 
 
 if __name__ == '__main__':
