@@ -1,23 +1,24 @@
 def get_fibonacci(n):
     if n == 0:
         return 0
-    elif n <= 2:
+    elif n == 1:
         return 1
     else:
-        return get_fibonacci(n - 1) + get_fibonacci(n - 2)
-
-
-def total_even_fibonacci(n):
-    total = 0
-    control = 0
-    fibonacci_number = 0
-    while fibonacci_number < n:
-        if fibonacci_number % 2 == 0:
-            total = total + fibonacci_number
-        control = control + 1
-        fibonacci_number = get_fibonacci(control)
-    return total
+        a, b = 0, 1
+        for x in range(1, n):
+            temp = a + b
+            a = b
+            b = temp
+        return b
 
 
 if __name__ == '__main__':
-    print(total_even_fibonacci(4000000))
+    total_even_fibo = 0
+    index = 0
+    fibo = 0
+    while fibo < 4000000:
+        if fibo % 2 ==0:
+            total_even_fibo += fibo
+        index += 1
+        fibo = get_fibonacci(index)
+    print(total_even_fibo)
