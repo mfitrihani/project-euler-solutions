@@ -1,13 +1,13 @@
-def produce_triangle_edge(n):
-    edges = [1]
-    addition = 2
-    x = 0
-    while x < n:
-        for y in range(0, 4):
-            edges.append(edges[len(edges) - 1] + addition)
-        addition += 2
-        x += 1
-    return edges
+# def produce_triangle_edge(n):
+#     edges = [1]
+#     addition = 2
+#     x = 0
+#     while x < n:
+#         for y in range(0, 4):
+#             edges.append(edges[len(edges) - 1] + addition)
+#         addition += 2
+#         x += 1
+#     return edges
 
 
 def is_prime(n):
@@ -23,9 +23,19 @@ def is_prime(n):
 
 
 if __name__ == '__main__':
-    for x in range(1, 9999):
-        triangle_edge = produce_triangle_edge(x)
-        prime_triangle_edge = [x for x in triangle_edge if is_prime(x)]
-        if len(prime_triangle_edge) / len(triangle_edge) < 0.1:
-            print(1 + 2*(x-1))
+    prime_count = 0
+    number_count = 1
+    edge_count = 1
+    edges = [1]
+    addition = 2
+    while True:
+        for y in range(0, 4):
+            edges.append(edges[len(edges) - 1] + addition)
+            number_count += 1
+            if is_prime(edges[len(edges) - 1]):
+                prime_count += 1
+        edge_count += 2
+        addition += 2
+        if prime_count/number_count < 0.1:
+            print(edge_count)
             break
