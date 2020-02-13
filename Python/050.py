@@ -1,44 +1,44 @@
-import time
-
-current_time = time.time()
-prime_numbers = []
-
-
 def generate_prime_numbers(maximum):
     candidates = [True for x in range(0, maximum)]
     for x in range(2, int(maximum ** 0.5) + 2):
         if candidates[x]:
             i = x * x
-            while maximum > i:
+            while i < maximum:
                 candidates[i] = False
                 i += x
+    prime_numbers = []
     for x in range(2, maximum):
         if candidates[x]:
             prime_numbers.append(x)
+    return prime_numbers
 
 
-def find_consecutive_prime_sum(n):
-    start, end = 0, 0
-    summation = 2
-    while summation != n:
-        if summation > n:
-            summation = summation - prime_numbers[start]
-            start += 1
-        elif summation < n:
-            end += 1
-            summation = summation + prime_numbers[end]
-    return [prime_numbers[x] for x in range(start, end + 1)]
+prime_numbers = generate_prime_numbers(1000000)
+
+
+def get_prime_addition(n):
+    summation = []
+    index, start_index, total = 0, 0, 0
+    while prime_numbers[index] < int(3*n/4):
+        summation.append(prime_numbers[index])
+        total += prime_numbers[index]
+        if total == n:
+            return summation
+        elif total > n:
+            total = 0
+            summation.clear()
+            start_index += 1
+            index = start_index
+        index += 1
+    return []
 
 
 if __name__ == '__main__':
-    generate_prime_numbers(100000)
-    longest_prime = 0
-    max_length = 0
+    longest_addition = 0
+    longest_addition_length = 0
     for x in prime_numbers:
-        summation = find_consecutive_prime_sum(x)
-        if len(summation) > max_length:
-            longest_prime = x
-            max_length = len(summation)
-    print(longest_prime)
-    print(find_consecutive_prime_sum(longest_prime))
-    print(time.time() - current_time)
+        addition = get_prime_addition(x)
+        if len(addition) > longest_addition_length:
+            longest_addition_length = len(addition)
+            longest_addition = x
+    print(longest_addition)
