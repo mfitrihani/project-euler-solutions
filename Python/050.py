@@ -16,29 +16,29 @@ def generate_prime_numbers(maximum):
 prime_numbers = generate_prime_numbers(1000000)
 
 
-def get_prime_addition(n):
-    summation = []
-    index, start_index, total = 0, 0, 0
-    while prime_numbers[index] < int(3*n/4):
-        summation.append(prime_numbers[index])
+def get_prime_addition_length(n):
+    index, start_index, total, length = 0, 0, 0, 0
+    while total != n:
         total += prime_numbers[index]
-        if total == n:
-            return summation
+        length += 1
+        if prime_numbers[index] >= n or start_index > 3:
+            return 1
         elif total > n:
+            length = 0
             total = 0
-            summation.clear()
             start_index += 1
             index = start_index
-        index += 1
-    return []
+        else:
+            index += 1
+    return length
 
 
 if __name__ == '__main__':
     longest_addition = 0
     longest_addition_length = 0
     for x in prime_numbers:
-        addition = get_prime_addition(x)
-        if len(addition) > longest_addition_length:
-            longest_addition_length = len(addition)
+        temp = get_prime_addition_length(x)
+        if temp > longest_addition_length:
+            longest_addition_length = temp
             longest_addition = x
     print(longest_addition)
